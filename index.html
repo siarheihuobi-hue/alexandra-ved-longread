@@ -38,12 +38,16 @@
   .topbar {
     background: var(--text);
     color: #fff;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     padding: 10px 20px;
     font-size: 13px;
     letter-spacing: 0.04em;
   }
   .topbar strong { color: #a8b8f8; }
+  .topbar-logo { height: 28px; display: block; }
 
   /* ── HEADER ── */
   .site-header {
@@ -816,12 +820,9 @@
 
 <div id="progress-bar"></div>
 <div class="topbar">
-  Статья от практика ВЭД · <strong>Александра Шумилова</strong> · WhiteWayChina
+  <img src="img/logo-white.svg" alt="WhiteWayChina" class="topbar-logo">
+  <span>Статья от практика ВЭД · <strong>Александра Шумилова</strong></span>
 </div>
-
-<header class="site-header">
-  <img src="img/logo.svg" alt="WhiteWayChina" style="height:36px;display:block;">
-</header>
 
 <article class="article">
 
