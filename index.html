@@ -1594,5 +1594,218 @@
 })();
 </script>
 
+<!-- ── Floating Telegram Button ── -->
+<style>
+  .tg-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .4s, transform .4s;
+    pointer-events: none;
+  }
+  .tg-float.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Popup menu */
+  .tg-float-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px) scale(.95);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+  }
+  .tg-float-menu.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .tg-float-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: var(--text);
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.12);
+    font-size: 14px;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: box-shadow .2s, transform .15s;
+  }
+  .tg-float-menu a:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,.18);
+    transform: translateY(-1px);
+  }
+  .tg-float-menu .tg-menu-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .tg-menu-icon.bot { background: var(--accent); }
+  .tg-menu-icon.channel { background: #2AABEE; }
+  .tg-menu-icon svg { width: 18px; height: 18px; fill: #fff; }
+
+  .tg-menu-text { display: flex; flex-direction: column; }
+  .tg-menu-label { font-weight: 600; font-size: 13px; }
+  .tg-menu-desc { font-size: 11px; color: var(--text-muted); }
+
+  /* Main FAB */
+  .tg-fab {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #2AABEE;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(42,171,238,.4);
+    transition: transform .2s, box-shadow .2s, background .2s;
+    position: relative;
+  }
+  .tg-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(42,171,238,.5);
+  }
+  .tg-fab svg {
+    width: 28px; height: 28px;
+    fill: #fff;
+    transition: transform .25s;
+  }
+  .tg-fab.open svg {
+    transform: rotate(45deg) scale(.85);
+  }
+
+  /* Pulse animation */
+  .tg-fab::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(42,171,238,.4);
+    animation: tg-pulse 2.5s ease-out infinite;
+  }
+  .tg-fab.open::after { animation: none; opacity: 0; }
+
+  @keyframes tg-pulse {
+    0% { transform: scale(1); opacity: .6; }
+    70% { transform: scale(1.35); opacity: 0; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  /* Backdrop */
+  .tg-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 8999;
+    background: rgba(0,0,0,.15);
+  }
+  .tg-backdrop.open { display: block; }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .tg-float { bottom: 20px; right: 16px; }
+    .tg-fab { width: 50px; height: 50px; }
+    .tg-fab svg { width: 24px; height: 24px; }
+    .tg-float-menu a { font-size: 13px; padding: 9px 14px; }
+  }
+
+  @media print { .tg-float, .tg-backdrop { display: none !important; } }
+</style>
+
+<div class="tg-backdrop" id="tgBackdrop"></div>
+
+<div class="tg-float" id="tgFloat">
+  <div class="tg-float-menu" id="tgMenu">
+    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" onclick="ym(102625647,'reachGoal','fab_bot_click')">
+      <span class="tg-menu-icon bot">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      </span>
+      <span class="tg-menu-text">
+        <span class="tg-menu-label">Задать вопрос / регистрация</span>
+        <span class="tg-menu-desc">Бот ответит и запишет на воркшоп</span>
+      </span>
+    </a>
+    <a href="https://t.me/shumilovachina" target="_blank" onclick="ym(102625647,'reachGoal','fab_channel_click')">
+      <span class="tg-menu-icon channel">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      </span>
+      <span class="tg-menu-text">
+        <span class="tg-menu-label">Канал Александры</span>
+        <span class="tg-menu-desc">Быть в курсе и не пропустить</span>
+      </span>
+    </a>
+  </div>
+
+  <button class="tg-fab" id="tgFab" aria-label="Telegram">
+    <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+  </button>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('tgFab');
+  var menu = document.getElementById('tgMenu');
+  var float = document.getElementById('tgFloat');
+  var backdrop = document.getElementById('tgBackdrop');
+  var isOpen = false;
+
+  function toggle() {
+    isOpen = !isOpen;
+    fab.classList.toggle('open', isOpen);
+    menu.classList.toggle('open', isOpen);
+    backdrop.classList.toggle('open', isOpen);
+  }
+
+  fab.addEventListener('click', toggle);
+  backdrop.addEventListener('click', toggle);
+
+  // Show after scrolling past first screen
+  var shown = false;
+  function checkScroll() {
+    if (!shown && window.scrollY > window.innerHeight * 0.6) {
+      float.classList.add('visible');
+      shown = true;
+    }
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+
+  // Hide when CTA section is in view
+  var ctaBlocks = document.querySelectorAll('.cta-wrap');
+  if (ctaBlocks.length) {
+    var ctaObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          float.style.opacity = '0';
+          float.style.pointerEvents = 'none';
+        } else if (shown) {
+          float.style.opacity = '';
+          float.style.pointerEvents = '';
+        }
+      });
+    }, { threshold: 0.3 });
+    ctaBlocks.forEach(function(cta) { ctaObserver.observe(cta); });
+  }
+})();
+</script>
+
 </body>
 </html>
