@@ -796,6 +796,23 @@
     .story-section { padding: 22px 18px; }
     .offer-body { padding: 20px; }
   }
+
+  /* ── About card: mobile fix ── */
+  @media (max-width: 700px) {
+    .about-card {
+      padding: 32px 24px 0 24px !important;
+      min-height: auto !important;
+    }
+    .about-card .about-photo {
+      position: static !important;
+      display: block;
+      margin: 24px auto 0;
+      height: auto !important;
+      max-height: 320px !important;
+      width: auto;
+      max-width: 70%;
+    }
+  }
 </style>
 <!-- Яндекс.Метрика -->
 <script type="text/javascript">
@@ -937,7 +954,7 @@
 
   <hr class="divider">
 
-  <div style="position:relative; background:linear-gradient(135deg, #f4f6ff 0%, #eef1fb 100%); border-radius:20px; padding:44px 260px 44px 48px; margin-bottom:34px; overflow:hidden; min-height:320px;">
+  <div class="about-card" style="position:relative; background:linear-gradient(135deg, #f4f6ff 0%, #eef1fb 100%); border-radius:20px; padding:44px 260px 44px 48px; margin-bottom:34px; overflow:hidden; min-height:320px;">
     <!-- декоративный акцент -->
     <div style="position:absolute; top:0; left:0; width:4px; height:100%; background:var(--accent); border-radius:20px 0 0 20px;"></div>
     <!-- текст -->
@@ -948,8 +965,8 @@
       <li>Налаживание цепочки поставок мобильных аксессуаров от более чем 30 поставщиков для сети магазинов в Европе</li>
       <li>Экономия клиенту 30 000 евро — через организацию кастомизированного производства с поставкой под ключ для немецкого технологического стартапа</li>
     </ul>
-    <!-- фото — прибито к правому краю и дну карточки -->
-    <img src="foto/IMG_5162-removebg-preview.png" alt="Александра Шумилова"
+    <!-- фото -->
+    <img class="about-photo" src="foto/IMG_5162-removebg-preview.png" alt="Александра Шумилова"
       style="position:absolute; bottom:0; right:0; height:110%; max-height:380px; width:auto; object-fit:contain; object-position:bottom right; pointer-events:none; user-select:none;">
   </div>
 
