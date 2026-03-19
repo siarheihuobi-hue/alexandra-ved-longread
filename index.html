@@ -426,26 +426,43 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
-    background: var(--accent);
+    background: linear-gradient(135deg, #d4a017 0%, #f0c040 50%, #d4a017 100%);
     color: #fff;
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
     padding: 22px 40px;
     border-radius: 12px;
-    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    transition: box-shadow 0.2s, transform 0.15s;
     line-height: 1.4;
     text-align: center;
-    box-shadow: 0 10px 36px rgba(89, 125, 238, 0.45);
+    box-shadow: 0 10px 36px rgba(212, 160, 23, 0.4);
+    position: relative;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  /* зеркальный блик — бежит по кнопке */
+  .cta-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+    animation: cta-shine 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes cta-shine {
+    0% { left: -100%; }
+    60% { left: 150%; }
+    100% { left: 150%; }
   }
   .cta-btn:hover {
-    background: var(--accent-dark);
-    box-shadow: 0 16px 48px rgba(89, 125, 238, 0.6);
+    box-shadow: 0 16px 48px rgba(212, 160, 23, 0.55);
     transform: translateY(-3px);
   }
   .cta-btn:active { transform: translateY(0); }
   .cta-btn.full { display: block; }
-  .cta-sub { font-size: 13px; color: var(--text-muted); margin-top: 12px; }
+  .cta-sub { font-size: 13px; color: var(--text-muted); margin-top: 12px; text-align: center; }
 
   /* ── OFFER BLOCK ── */
   .offer-block {
@@ -792,7 +809,7 @@
     .contract-card img { height: 260px; }
     .ba-row { grid-template-columns: 1fr; }
     .ba-col-before { border-right: none; border-bottom: 1px solid var(--border); }
-    .cta-btn { display: block; text-align: center; }
+    .cta-btn { display: block; text-align: center; padding: 18px 20px; font-size: 16px; }
     .story-section { padding: 22px 18px; }
     .offer-body { padding: 20px; }
   }
@@ -1298,6 +1315,13 @@
     <strong>3 и более «нет»</strong> — это и есть слепой импорт. Не в теории — в вашей конкретной схеме прямо сейчас.
   </div>
 
+  <p>Хотите разобраться, что с этим делать? На воркшопе 28–29 марта разберём каждый из этих вопросов на реальных примерах. А прямо сейчас — получите 20 вопросов для проверки вашего посредника или логиста.</p>
+
+  <div class="cta-wrap" style="margin-bottom: 56px;">
+    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Получить 20 вопросов + записаться на воркшоп → Telegram</a>
+    <p class="cta-sub">Бесплатно. Перейдёте в Telegram-бот — получите бонус и регистрацию на воркшоп 28–29 марта.</p>
+  </div>
+
   <!-- ══ 3 PATHS ══ -->
   <hr class="divider-wide">
 
@@ -1343,10 +1367,11 @@
     </div>
   </div>
 
-  <p>Если вы уже понимаете, что это про вас — не откладывайте. Регистрация занимает 2 минуты.</p>
+  <p>Если вы уже понимаете, что это про вас — не откладывайте.</p>
 
   <div class="cta-wrap" style="margin-bottom: 96px;">
-    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Зарегистрироваться на воркшоп · 28–29 марта →</a>
+    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Получить бонус и записаться на воркшоп → Telegram</a>
+    <p class="cta-sub">Перейдёте в Telegram-бот. Получите 20 вопросов для проверки посредника + регистрация на воркшоп 28–29 марта.</p>
   </div>
 
   <!-- ══ OFFER ══ -->
@@ -1488,8 +1513,8 @@
   </div>
 
   <div class="cta-wrap">
-    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Зарегистрироваться на воркшоп · 28–29 марта →</a>
-    <div class="cta-sub">Регистрация через Telegram · 2 минуты · бесплатно</div>
+    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Получить бонус и записаться на воркшоп → Telegram</a>
+    <div class="cta-sub">Перейдёте в Telegram-бот. Получите 20 вопросов для проверки посредника + регистрация на воркшоп 28–29 марта.</div>
     <div style="margin-top:28px;">
       <div style="font-size:13px;color:#888;margin-bottom:10px;">Или отсканируйте с телефона</div>
       <a href="https://t.me/AShumilova_bot?start=longread" target="_blank">
@@ -1505,7 +1530,8 @@
   <p>Если вы хотите перестать возить вслепую и наконец увидеть, где именно в вашем импорте прямо сейчас находятся деньги, риски и слепые зоны — не откладывайте. <strong>Каждая следующая поставка без понимания — это ещё один конверт, который может лечь к вам на стол.</strong></p>
 
   <div class="cta-wrap">
-    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Зарегистрироваться на воркшоп · 28–29 марта →</a>
+    <a href="https://t.me/AShumilova_bot?start=longread" target="_blank" class="cta-btn full">Получить бонус и записаться на воркшоп → Telegram</a>
+    <p class="cta-sub">Перейдёте в Telegram-бот. Получите 20 вопросов для проверки посредника + регистрация на воркшоп 28–29 марта.</p>
   </div>
 
   <!-- SIGNATURE -->
