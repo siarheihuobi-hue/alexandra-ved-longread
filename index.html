@@ -757,11 +757,7 @@
     box-shadow: 0 12px 40px rgba(0,0,0,0.14);
   }
 
-  /* ── Envelope parallax layer ── */
-  .envelope-wrap img {
-    transition: transform 0.1s linear;
-    will-change: transform;
-  }
+  /* ── Envelope image (static, no parallax) ── */
 
   /* ── Page entrance ── */
   .site-header, .topbar {
@@ -1519,13 +1515,7 @@
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
-  /* ── Parallax: envelope image ── */
-  const envelope = document.querySelector('.envelope-wrap img');
-  if (envelope) {
-    window.addEventListener('scroll', function () {
-      envelope.style.transform = 'translateY(' + (window.scrollY * 0.12) + 'px)';
-    }, { passive: true });
-  }
+  /* ── Envelope: static, no parallax ── */
 
   /* ── Scroll reveal ── */
   // Elements to reveal as single blocks
