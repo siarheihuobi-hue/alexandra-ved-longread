@@ -1840,5 +1840,30 @@
 })();
 </script>
 
+<script>
+/* ── Telegram deep link: tg:// → fallback https://t.me/ ── */
+(function(){
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href*="t.me/"]');
+    if(!link) return;
+    var href = link.getAttribute('href');
+    var tgUrl;
+    var botMatch = href.match(/t\.me\/([^?]+)\?start=(\w+)/);
+    if(botMatch){
+      tgUrl = 'tg://resolve?domain=' + botMatch[1] + '&start=' + botMatch[2];
+    } else {
+      var chanMatch = href.match(/t\.me\/(\w+)/);
+      if(chanMatch) tgUrl = 'tg://resolve?domain=' + chanMatch[1];
+    }
+    if(!tgUrl) return;
+    e.preventDefault();
+    window.location.href = tgUrl;
+    setTimeout(function(){
+      if(!document.hidden) window.open(href, '_blank');
+    }, 1500);
+  });
+})();
+</script>
+
 </body>
 </html>
